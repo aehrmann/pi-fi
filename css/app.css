@@ -1,0 +1,144 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background-color: #34495e;
+  color: #dfbcdf;
+  font-family: 'Inconsolata', monospace;
+  font-size: 16px;
+  height: 100%;
+  width: 100%;
+}
+
+
+.digit {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 4rem;
+  margin-right: 0.8rem;
+  opacity: 0.5;
+  transition: opacity 100ms;
+}
+
+.digit.highlighted {
+  opacity: 1;
+}
+
+.loading-message {
+  border-radius: 10px;
+  color: #fff;
+  font-size: 3rem;
+  left: 50%;
+  padding-top: 25%;
+  position: absolute;
+  text-align: center;
+  transform: translateX(-50%);
+}
+
+/* Controls ======================================== */
+.controls {
+  padding-top: 3rem;
+  padding-right: 3rem;
+  margin-bottom: 1rem;
+}
+
+.controls .form-group {
+  display: flex;
+  flex-direction: row;
+  align-content: space-around;
+  align-items: center;
+}
+
+.controls .buttons {
+  margin-right: auto;
+}
+
+.controls input {
+  color: #333;
+}
+
+.controls .btn-play-pause,
+.controls .btn-reset {
+  padding: 0.5rem 1.5rem;
+}
+
+.controls .btn-play-pause {
+  background-color: #2ecc71;
+}
+
+.controls .btn-reset {
+  background-color: #c0392b;
+}
+
+.controls .btn-update-duration {
+  background-color: #fbc345;
+  font-size: 1rem;
+}
+
+.controls .btn-play-pause i,
+.controls .btn-reset i {
+  color: #ecf0f1;
+}
+
+
+/* Styles from Bootstrap (container and btn classes) ====================== */
+
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+
+.btn {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.btn:active,
+.btn.active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+
+.btn:focus {
+  outline: 0;
+}
