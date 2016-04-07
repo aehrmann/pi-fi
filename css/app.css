@@ -39,26 +39,52 @@ body {
   transform: translateX(-50%);
 }
 
+
+/* Text ======================================== */
+.title {
+  margin-bottom: 0;
+}
+
 /* Controls ======================================== */
 .controls {
   padding-top: 3rem;
-  padding-right: 3rem;
   margin-bottom: 1rem;
 }
 
-.controls .form-group {
+.controls {
   display: flex;
   flex-direction: row;
-  align-content: space-around;
+  justify-content: space-between;
   align-items: center;
+}
+
+.inputs,
+.buttons {
+  flex: 1;
 }
 
 .controls .buttons {
   margin-right: auto;
 }
 
+.controls .inputs {
+  text-align: right;
+}
 .controls input {
   color: #333;
+  font-size: 1.5rem;
+  text-align: center;
+  border-radius: 3px;
+  border: none;
+  text-align: center;
+  vertical-align: middle;
+  height: 2.25rem;
+  width: 20%;
+}
+
+label[for="duration"] {
+  font-size: 1.5rem;
+  vertical-align: middle;
 }
 
 .controls .btn-play-pause,
