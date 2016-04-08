@@ -42,7 +42,7 @@
     this.oscillatorNode.type = 'triangle';
     this.gainNode.gain.value = 0;
 
-    // Contect all the tubes
+    // Connect all the tubes
     this.oscillatorNode.connect(this.gainNode);
     this.gainNode.connect(audioContext.destination);
 
@@ -82,7 +82,8 @@
 
   // The tone factory (maybe more scales in the future)
   app.factory("scaleFactory", function scaleFactory() {
-    // C Scale - according to http://www.phy.mtu.edu/~suits/notefreqs.html
+    // Frequencies for the notes C3 through D4- according to
+    // http://www.phy.mtu.edu/~suits/notefreqs.html
     return [130.81, 146.83, 164.81, 174.61, 196.00, 196, 220, 246.94, 261.63, 293.66];
   });
 
