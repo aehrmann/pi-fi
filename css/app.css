@@ -65,12 +65,13 @@ header h1 {
   top: 2.5rem;
   transition: opacity 200ms ease-in;
   width: 80%;
-  z-index: 10;
+  z-index: -10;
 }
 
 
 .info-icon:hover .info-text {
   opacity: 1;
+  z-index: 10;
 }
 
 /* Controls ======================================== */
@@ -120,16 +121,39 @@ label[for="duration"] {
   padding: 0.5rem 1.5rem;
 }
 
+.controls .btn {
+  position: relative;
+  width: 5rem;
+}
+
+.controls .btn:active {
+  position: relative;
+  left: 4px;
+  top: 4px;
+}
+
 .controls .btn-play-pause {
   background-color: #2ecc71;
+  box-shadow: 1px 1px 0 #19703E,
+              2px 2px 0 #19703E,
+              3px 3px 0 #19703E,
+              4px 4px 0 #19704E;
 }
 
 .controls .btn-reset {
   background-color: #c0392b;
+  box-shadow: 1px 1px 0 #5E1C15,
+              2px 2px 0 #5E1C15,
+              3px 3px 0 #5E1C15,
+              4px 4px 0 #5E1C15;
 }
 
 .controls .btn-update-duration {
   background-color: #fbc345;
+  box-shadow: 1px 1px 0 #664F1C,
+              2px 2px 0 #664F1C,
+              3px 3px 0 #664F1C,
+              4px 4px 0 #664F1C;
   font-size: 1rem;
 }
 
