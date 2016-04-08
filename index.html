@@ -48,7 +48,7 @@
         <section class="buttons">
           <!--Play/pause button-->
           <button class="btn btn-play-pause"
-            ng-click="audio.togglePlay()">
+            ng-click="audio.toggle_play()">
             <i ng-class="'fa fa-2x fa-' + (audio.isPlaying ? 'pause': 'play')"></i>
           </button>
 
@@ -63,7 +63,7 @@
           <!--duration input-->
           <label for="duration">Duration</label>
           <input id="duration" name="duration" type="number" ng-model="audio.duration">
-          <button class="btn btn-update-duration" ng-click="audio.updateDuration()">Update</button>
+          <button class="btn btn-update-duration" ng-click="audio.update_druation()">Update</button>
         </section>
       </section>
 

@@ -10,18 +10,18 @@
   var defaults = {
     duration: 300,
     frequency: 0,
-    initialOpacity: 0.5,
-    numberOfDigits: 500,
+    initial_opacity: 0.5,
+    number_of_digits: 500,
     volume: 0.1,
-    waveType: 'triangle'
+    wave_type: 'triangle'
   };
 
   // The number genertor (courtesy of https://helloacm.com/list-of-apis/)
-  var digitsApiUrl = 'https://helloacm.com/api/pi/?n=';
-  app.factory('digitsApi', function($http) {
+  var digits_api_url = 'https://helloacm.com/api/pi/?n=';
+  app.factory('digits_api', function($http) {
     return {
-      fetch: function(numDigits, callback) {
-        $http.get(digitsApiUrl + numDigits)
+      fetch: function(num_digits, callback) {
+        $http.get(digits_api_url + num_digits)
         .success(function(response) {
 
           // I don't know why there's a leading 0 in the string, but let's get
@@ -32,30 +32,30 @@
         });
       }
     };
-  };
+  });
 
-  function Oscillator(frequency, waveType, volume) {
+  function Oscillator(frequency, wave_type, volume) {
     // Grab the global audio context so we can make some noises
-    var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    var audio_context = new (window.AudioContext || window.webkitAudioContext)();
 
 
-    this.initialize = function(frequency, waveType, volume) {
+    this.initialize = function(frequency, wave_type, volume) {
       // Create nodes for the oscillator and a node to regulate its volume
-      this.oscillatorNode = audioContext.createOscillator();
-      this.gainNode = audioContext.createGain();
+      this.oscillator_node = audio_context.createOscillator();
+      this.gain_node = audio_context.createGain();
 
       // Set some default parameters
-      this.oscillatorNode.frequency.value = frequency || defaults.frequency;
-      this.oscillatorNode.type = waveType || defaults.waveType;
-      this.gainNode.gain.value = volume || defaults.volume;
+      this.oscillator_node.frequency.value = frequency || defaults.frequency;
+      this.oscillator_node.type = wave_type || defaults.wave_type;
+      this.gain_node.gain.value = volume || defaults.volume;
 
       // Connect all the tubes: oscillator -> gain node -> browser output
-      this.oscillatorNode.connect(this.gainNode);
-      this.gainNode.connect(audioContext.destination);
+      this.oscillator_node.connect(this.gain_node);
+      this.gain_node.connect(audio_context.destination);
 
       // Start the node, even though we can't hear it; it's volume will change 
       // soon enough
-      this.oscillatorNode.start(0);
+      this.oscillator_node.start(0);
     }
 
     this.start = function() {
@@ -63,29 +63,29 @@
     };
 
     this.stop = function() {
-      this.gainNode.gain.value = 0;
-      this.oscillatorNode.stop();
+      this.gain_node.gain.value = 0;
+      this.oscillator_node.stop();
 
       // The Web Audio API only allows nodes to be started and stopped once, so 
       // we create a fresh instance, here, for the next user of the service.
-      this.oscillatorNode = this.audioContext.createOscillator();
-      this.oscillatorNode.connect(this.gainNode);
+      this.oscillator_node = this.audio_context.createOscillator();
+      this.oscillator_node.connect(this.gain_node);
     };
 
     // Switch off, change frequency, switch on
-    this.playNote = function(noteFrequency) {
-      this.gainNode.gain.value = 0;
-      this.oscillatorNode.frequency.value = noteFrequency;
-      this.gainNode.gain.value = defaults.volume;
+    this.play_note = function(note_frequency) {
+      this.gain_node.gain.value = 0;
+      this.oscillator_node.frequency.value = note_frequency;
+      this.gain_node.gain.value = defaults.volume;
     };
 
     this.mute = function() {
-      this.gainNode.gain.value = 0;
+      this.gain_node.gain.value = 0;
     }
   };
 
   // Register the oscillator service with Angular
-  app.service("oscillatorService", function() {
+  app.service("oscillator_service", function() {
     return {
       getOscillator: function() {
         return new Oscillator();
@@ -94,42 +94,42 @@
   });
 
   // The tone factory (maybe more scales in the future)
-  app.factory("scaleFactory", function scaleFactory() {
+  app.factory("scale_factory", function scale_factory() {
     // Frequencies for the notes C3 through D4- according to
     // http://www.phy.mtu.edu/~suits/notefreqs.html
     return [130.81, 146.83, 164.81, 174.61, 196.00, 196, 220, 246.94, 261.63, 293.66];
   });
 
   // The main audio controller
-  app.controller('AudioCtrl', function($scope, digitsApi, scaleFactory, oscillatorService) {
+  app.controller('AudioCtrl', function($scope, digits_api, scale_factory, oscillator_service) {
     // Necessary for Angular's "controller as" syntax
     var self = this;
 
     // Initialize things
-    self.dataLoaded = false;
+    self.data_loaded = false;
     self.digits = [];
-    self.currentIndex = 0;
-    self.isPlaying = false;
+    self.current_index = 0;
+    self.is_playing = false;
     self.duration = defaults.duration;
-    self.osc = oscillatorService.getOscillator();
-    self.scale = scaleFactory;
+    self.osc = oscillator_service.getOscillator();
+    self.scale = scale_factory;
 
-    self.currentDigitEl = function() {
-      return $('.digit').eq(self.currentIndex);
+    self.current_digit_el = function() {
+      return $('.digit').eq(self.current_index);
     }
 
-    self.frequencyForDigit = function(digit) {
-      var nextIndex = parseInt(self.digits[self.currentIndex]);
+    self.frequency_for_digit = function(digit) {
+      var nextIndex = parseInt(self.digits[self.current_index]);
       return self.scale[nextIndex];
     };
 
     self.step = function() {
       // light up the digit
-      self.currentDigitEl().addClass('highlighted');
+      self.current_digit_el().addClass('highlighted');
 
       // play the note corresponding to the current digit's text
-      self.osc.playNote(self.frequencyForDigit(self.currentDigitEl()), self.duration);
-      self.currentIndex++;
+      self.osc.play_note(self.frequency_for_digit(self.current_digit_el()), self.duration);
+      self.current_index++;
     };
 
 
@@ -141,20 +141,20 @@
 
 
     // Get the digits of the number
-    digitsApi.fetch(defaults.numberOfDigits, function(digits) {
+    digits_api.fetch(defaults.number_of_digits, function(digits) {
       self.digits = digits;
-      self.dataLoaded = true;
+      self.data_loaded = true;
     });
 
 
     // Play pause
-    self.togglePlay = function() {
-      if(self.isPlaying) {
+    self.toggle_play = function() {
+      if(self.is_playing) {
         self.pause();
       } else {
         self.play();
       }
-      self.isPlaying = !self.isPlaying;
+      self.is_playing = !self.is_playing;
     };
 
     // Pause
@@ -165,19 +165,19 @@
 
     // Play
     self.play = function() {
-      self.currentDigitEl().addClass('highlighted');
+      self.current_digit_el().addClass('highlighted');
       self.timer.start()
     };
 
     // Reset state
     self.reset = function() {
       self.pause();
-      self.currentIndex = 0;
+      self.current_index = 0;
       $('.digit').removeClass('highlighted');
     };
 
     // Update duration
-    self.updateDuration = function() {
+    self.update_duration = function() {
       self.pause();
       self.timer.stop();
       self.timer = new Tock({
@@ -185,7 +185,7 @@
         callback: self.step
       });
 
-      if(self.isPlaying) {
+      if(self.is_playing) {
         self.timer.start();
       }
     };
