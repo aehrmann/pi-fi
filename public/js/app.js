@@ -1,6 +1,6 @@
 'use strict';
 
-// The app
+// Bootstrap the app
 var app = angular.module('piFiApp', []);
 
 // Ooh, magic numbers and text
@@ -15,7 +15,11 @@ var defaults = {
 };
 
 // The main audio controller
-app.controller('AudioCtrl', function($scope, digits_api, scale_factory, oscillator_service) {
+app.controller('AudioCtrl', function($scope, 
+                                     digits_api, 
+                                     scale_factory, 
+                                     oscillator_service,
+                                     timer_service) {
   // Necessary for Angular's "controller as" syntax
   var self = this;
 
