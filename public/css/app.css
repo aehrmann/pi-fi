@@ -1,0 +1,222 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background-color: #34495e;
+  color: #dfbcdf;
+  font-family: 'Inconsolata', monospace;
+  font-size: 16px;
+  height: 100%;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+
+.digit {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 4rem;
+  margin-right: 0.8rem;
+  opacity: 0.5;
+  transition: opacity 100ms;
+}
+
+.digit.highlighted {
+  opacity: 1;
+}
+
+.loading-message {
+  border-radius: 10px;
+  color: #fff;
+  font-size: 3rem;
+  left: 50%;
+  padding-top: 25%;
+  position: absolute;
+  text-align: center;
+  transform: translateX(-50%);
+}
+
+
+/* Header ======================================== */
+header {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
+}
+header h1 {
+  margin: 0;
+}
+
+.info-text {
+  background-color: #fff;
+  border-radius: 1rem;
+  color: #34495e;
+  font-size: 1.5rem;
+  opacity: 0;
+  position: absolute;
+  right: 1rem;
+  padding: 1rem;
+  top: 2.5rem;
+  transition: opacity 200ms ease-in;
+  width: 80%;
+  z-index: -10;
+}
+
+
+.info-icon:hover .info-text {
+  opacity: 1;
+  z-index: 10;
+}
+
+/* Controls ======================================== */
+.controls {
+  padding-top: 3rem;
+  margin-bottom: 1rem;
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.inputs,
+.buttons {
+  flex: 1;
+}
+
+.controls .buttons {
+  margin-right: auto;
+}
+
+.controls .inputs {
+  text-align: right;
+}
+.controls input {
+  color: #333;
+  font-size: 1.5rem;
+  text-align: center;
+  border-radius: 3px;
+  border: none;
+  text-align: center;
+  vertical-align: middle;
+  height: 2.25rem;
+  width: 20%;
+}
+
+label[for="duration"] {
+  font-size: 1.5rem;
+  vertical-align: middle;
+}
+
+.controls .btn-play-pause,
+.controls .btn-reset {
+  padding: 0.5rem 1.5rem;
+}
+
+.controls .btn {
+  position: relative;
+  width: 5rem;
+}
+
+.controls .btn:active {
+  position: relative;
+  left: 4px;
+  top: 4px;
+}
+
+.controls .btn-play-pause {
+  background-color: #2ecc71;
+  box-shadow: 1px 1px 0 #19703E,
+              2px 2px 0 #19703E,
+              3px 3px 0 #19703E,
+              4px 4px 0 #19704E;
+}
+
+.controls .btn-reset {
+  background-color: #c0392b;
+  box-shadow: 1px 1px 0 #5E1C15,
+              2px 2px 0 #5E1C15,
+              3px 3px 0 #5E1C15,
+              4px 4px 0 #5E1C15;
+}
+
+.controls .btn-update-duration {
+  background-color: #fbc345;
+  box-shadow: 1px 1px 0 #664F1C,
+              2px 2px 0 #664F1C,
+              3px 3px 0 #664F1C,
+              4px 4px 0 #664F1C;
+  font-size: 1rem;
+}
+
+.controls .btn-play-pause i,
+.controls .btn-reset i {
+  color: #ecf0f1;
+}
+
+
+/* Styles from Bootstrap (container and btn classes) ====================== */
+
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+
+.btn {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.btn:active,
+.btn.active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+
+.btn:focus {
+  outline: 0;
+}

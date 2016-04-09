@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Pi-fi</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Inconsolata Font from Google Web Fonts https://www.google.com/fonts/specimen/Inconsolata-->
+    <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+    <!--Font Awesome CDN-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <!--jQuery CDN-->
+    <script src="https://code.jquery.com/jquery-1.12.2.js"
+      integrity="sha256-VUCyr0ZXB5VhBibo2DkTVhdspjmxUgxDGaLQx7qb7xY="
+    crossorigin="anonymous"></script>
+
+  <!--Angular CDN-->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js"></script>
+
+  <!--Tock.js Timer-->
+  <script src="../bower_components/tock/tock.js"></script>
+
+  <!--custom scripts-->
+  <script src="js/app.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.0.0/normalize.min.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+
+<body ng-app="piFiApp">
+  <div class="container">
+
+    <header>
+      <h1>Music in the key of Pi</h1>
+      <span class="info-icon">
+        <i class="fa fa-2x fa-question-circle"></i>
+        <span class="info-text">Press play and listen to the digits of Pi as 
+          indices into a simple list of musical notes, the 10 notes between
+          C3 and D4. For example the 3rd note in the list is E3 so the is the first note
+        you hear.</span>
+      </span>
+    </header>
+
+    <main ng-controller="AudioCtrl as audio">
+      <section class="controls">
+        <section class="buttons">
+          <!--Play/pause button-->
+          <button class="btn btn-play-pause"
+            ng-click="audio.toggle_play()">
+            <i ng-class="'fa fa-2x fa-' + (audio.isPlaying ? 'pause': 'play')"></i>
+          </button>
+
+          <!--Reset button-->
+          <button class="btn btn-lg btn-reset"
+            ng-click="audio.reset()">
+            <i class="fa fa-2x fa-undo"></i>
+          </button>
+        </section>
+
+        <section class="inputs">
+          <!--duration input-->
+          <label for="duration">Duration</label>
+          <input id="duration" name="duration" type="number" ng-model="audio.duration">
+          <button class="btn btn-update-duration" ng-click="audio.update_druation()">Update</button>
+        </section>
+      </section>
+
+      <section class="digits">
+        <p class="loading-message" ng-hide="audio.dataLoaded">Loading digits...</p>
+        <span class="digit" ng-repeat="digit in audio.digits track by $index">
+          {{ digit }}
+        </span>
+      </section>
+    </main>
+
+  </div>
+</body>
+</html>
