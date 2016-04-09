@@ -4,8 +4,8 @@ var app = angular.module('piFiApp');
 
 // The tone factory (maybe more scales in the future)
 app.factory("scale_factory", function scale_factory() {
-  // Frequencies for the notes C3 through D4- according to
+  // Frequencies for the notes A3 through C#4 - according to
   // http://www.phy.mtu.edu/~suits/notefreqs.html
 
-  return [130.81, 146.83, 164.81, 174.61, 196.00, 196, 220, 246.94, 261.63, 293.66];
+  return [220.00, 246.94, 277.18, 293.66, 329.63, 369.99, 415.30, 440.00, 493.88, 554.37];
 });
