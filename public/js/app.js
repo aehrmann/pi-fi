@@ -35,52 +35,53 @@
   });
 
   function Oscillator(frequency, wave_type, volume) {
+    var self = this;
     // Grab the global audio context so we can make some noises
     var audio_context = new (window.AudioContext || window.webkitAudioContext)();
 
 
     this.initialize = function(frequency, wave_type, volume) {
       // Create nodes for the oscillator and a node to regulate its volume
-      this.oscillator_node = audio_context.createOscillator();
-      this.gain_node = audio_context.createGain();
+      self.oscillator_node = audio_context.createOscillator();
+      self.gain_node = audio_context.createGain();
 
       // Set some default parameters
-      this.oscillator_node.frequency.value = frequency || defaults.frequency;
-      this.oscillator_node.type = wave_type || defaults.wave_type;
-      this.gain_node.gain.value = volume || defaults.volume;
+      self.oscillator_node.frequency.value = frequency || defaults.frequency;
+      self.oscillator_node.type = wave_type || defaults.wave_type;
+      self.gain_node.gain.value = volume || defaults.volume;
 
       // Connect all the tubes: oscillator -> gain node -> browser output
-      this.oscillator_node.connect(this.gain_node);
-      this.gain_node.connect(audio_context.destination);
+      self.oscillator_node.connect(self.gain_node);
+      self.gain_node.connect(audio_context.destination);
 
       // Start the node, even though we can't hear it; it's volume will change 
       // soon enough
-      this.oscillator_node.start(0);
+      self.oscillator_node.start(0);
     }
 
     this.start = function() {
-      this.oscillator.start(0);
+      self.oscillator.start(0);
     };
 
     this.stop = function() {
-      this.gain_node.gain.value = 0;
-      this.oscillator_node.stop();
+      self.gain_node.gain.value = 0;
+      self.oscillator_node.stop();
 
       // The Web Audio API only allows nodes to be started and stopped once, so 
       // we create a fresh instance, here, for the next user of the service.
-      this.oscillator_node = this.audio_context.createOscillator();
-      this.oscillator_node.connect(this.gain_node);
+      self.oscillator_node = self.audio_context.createOscillator();
+      self.oscillator_node.connect(self.gain_node);
     };
 
     // Switch off, change frequency, switch on
     this.play_note = function(note_frequency) {
-      this.gain_node.gain.value = 0;
-      this.oscillator_node.frequency.value = note_frequency;
-      this.gain_node.gain.value = defaults.volume;
+      self.gain_node.gain.value = 0;
+      self.oscillator_node.frequency.value = note_frequency;
+      self.gain_node.gain.value = defaults.volume;
     };
 
     this.mute = function() {
-      this.gain_node.gain.value = 0;
+      self.gain_node.gain.value = 0;
     }
   };
 
@@ -88,7 +89,9 @@
   app.service("oscillator_service", function() {
     return {
       getOscillator: function() {
-        return new Oscillator();
+        var osc = new Oscillator();
+        osc.initialize();
+        return osc;
       }
     }
   });
