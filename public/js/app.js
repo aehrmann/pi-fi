@@ -14,32 +14,6 @@ var defaults = {
   wave_type: 'triangle'
 };
 
-// The number genertor (courtesy of https://helloacm.com/list-of-apis/)
-var digits_api_url = 'https://helloacm.com/api/pi/?n=';
-app.factory('digits_api', function($http) {
-  return {
-    fetch: function(num_digits, callback) {
-      $http.get(digits_api_url + num_digits)
-      .success(function(response) {
-
-        // I don't know why there's a leading 0 in the string, but let's get
-        // rid of that
-        var digits = response.slice(1);
-
-        callback(digits);
-      });
-    }
-  };
-});
-
-// The tone factory (maybe more scales in the future)
-app.factory("scale_factory", function scale_factory() {
-  // Frequencies for the notes C3 through D4- according to
-  // http://www.phy.mtu.edu/~suits/notefreqs.html
-
-  return [130.81, 146.83, 164.81, 174.61, 196.00, 196, 220, 246.94, 261.63, 293.66];
-});
-
 // The main audio controller
 app.controller('AudioCtrl', function($scope, digits_api, scale_factory, oscillator_service) {
   // Necessary for Angular's "controller as" syntax
