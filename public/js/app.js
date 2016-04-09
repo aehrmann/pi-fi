@@ -96,6 +96,7 @@ app.controller('AudioCtrl', function($scope,
 
   // Update duration
   self.update_duration = function() {
+    console.log('update');
     self.pause();
     self.timer.stop();
     self.timer = new Tock({
